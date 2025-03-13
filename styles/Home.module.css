@@ -238,20 +238,24 @@
 
 .themeToggleContainer {
   position: fixed;
-  top: 20px;
-  right: 20px;
-  width: 40px;
-  height: 40px;
+  top: 0;
+  right: 0;
+  width: 80px;
+  height: 80px;
   z-index: 1000;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+  padding: 20px;
 }
 
 .hiddenToggle {
   position: absolute;
   top: 0;
   right: 0;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  border-radius: 0 0 0 80px;
   background-color: transparent;
   cursor: pointer;
   opacity: 0;
@@ -259,8 +263,8 @@
 
 .themeToggleButtons {
   position: absolute;
-  top: 0;
-  right: 0;
+  top: 20px;
+  right: 20px;
   display: flex;
   gap: 10px;
   background-color: var(--tooltip-bg);
@@ -327,4 +331,143 @@
 @keyframes fadeIn {
   from { opacity: 0 !important; }
   to { opacity: 1 !important; }
+}
+
+.speederTriggerArea {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 350px;
+  height: 350px;
+  z-index: 1000;
+  border-radius: 200px 0 0 0;
+  /*background-color: rgba(255, 0, 0, 0.1);*/
+}
+
+.mandoSpeeder {
+  position: fixed;
+  width: 130px;
+  height: 60px;
+  cursor: pointer;
+  transform: scaleX(-1);
+  transition: left 0.5s cubic-bezier(0.22, 0.61, 0.36, 1), top 0.3s ease-out;
+  z-index: 999;
+  filter: drop-shadow(0 5px 15px rgba(0,0,0,0.4));
+  pointer-events: all;
+}
+
+.mandoSpeeder.exiting {
+  transition: left 0.6s cubic-bezier(0.5, 0, 0.75, 0);
+  filter: drop-shadow(0 5px 25px rgba(255,120,0,0.7)) brightness(1.2);
+}
+
+.mandoSpeeder.flippedLeft {
+  transform: scaleX(1);
+  transition: transform 0.3s ease, left 0.5s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.speederImage {
+  width: 100%;
+  height: auto;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.engineTrail {
+  position: absolute;
+  right: -30px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 50px;
+  height: 10px;
+  background: linear-gradient(to left, 
+                             rgba(255, 120, 0, 0.9), 
+                             rgba(255, 160, 0, 0.7) 30%, 
+                             rgba(255, 200, 0, 0.4) 50%, 
+                             transparent 100%);
+  border-radius: 5px;
+  filter: blur(3px);
+  opacity: 0.8;
+  box-shadow: 0 0 10px rgba(255, 120, 0, 0.7);
+  z-index: -1;
+  transition: width 0.2s ease, opacity 0.2s ease;
+  animation: trailPulse 1.2s infinite alternate;
+}
+
+@keyframes trailPulse {
+  0% { width: 50px; opacity: 0.7; }
+  100% { width: 60px; opacity: 0.9; }
+}
+
+.mandoSpeeder.flippedLeft .engineTrail {
+  right: auto;
+  left: -30px;
+  background: linear-gradient(to right, 
+                             rgba(255, 120, 0, 0.9), 
+                             rgba(255, 160, 0, 0.7) 30%, 
+                             rgba(255, 200, 0, 0.4) 50%, 
+                             transparent 100%);
+}
+
+.mandoSpeeder.exiting .engineTrail {
+  width: 90px;
+  animation: pulseThruster 0.15s infinite alternate;
+}
+
+@keyframes pulseThruster {
+  from {
+    opacity: 0.8;
+    width: 90px;
+  }
+  to {
+    opacity: 1;
+    width: 130px;
+  }
+}
+
+.mandoSpeeder:hover {
+  filter: drop-shadow(0 5px 20px rgba(255, 120, 0, 0.4)) brightness(1.1);
+  transform: scale(1.05) scaleX(-1);
+  cursor: pointer;
+}
+
+.mandoSpeeder.flippedLeft:hover {
+  transform: scale(1.05) scaleX(1);
+}
+
+.mandoSpeeder:hover .engineTrail {
+  width: 80px;
+  opacity: 1;
+  animation: enginePulse 0.8s infinite alternate;
+}
+
+@keyframes enginePulse {
+  from {
+    width: 60px;
+    opacity: 0.8;
+  }
+  to {
+    width: 80px;
+    opacity: 1;
+    box-shadow: 0 0 15px rgba(255, 140, 0, 0.9);
+  }
+}
+
+.speederTriggerArea:hover::after {
+  content: "";
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: rgba(255, 160, 0, 0.1);
+  box-shadow: 0 0 20px rgba(255, 160, 0, 0.15);
+  animation: pulseIndicator 2s infinite;
+}
+
+@keyframes pulseIndicator {
+  0% { transform: scale(0.9); opacity: 0.3; }
+  50% { transform: scale(1.1); opacity: 0.5; }
+  100% { transform: scale(0.9); opacity: 0.3; }
 }

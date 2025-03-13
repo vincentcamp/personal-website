@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import Head from 'next/head';
 import styles from '../styles/Home.module.css';
 import ImageCarousel from '../components/ImageCarousel';
+import MandalorianSpeeder from '../components/MandalorianSpeeder';
 
 const companyInfo = {
   'Fari': {
@@ -150,6 +151,7 @@ export default function Home() {
     localStorage.setItem('theme', newTheme);
   };
   
+  // Tooltip handling functions remain the same...
   const handleMouseMove = (e) => {
     if (tooltipData) {
       const offset = 15;
@@ -279,7 +281,8 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Main content */}
+      <MandalorianSpeeder />
+
       <main className={styles.main}>
         <h1>Vincent Campanaro</h1>
         <p>BTE + CS @ NYU Stern</p>
