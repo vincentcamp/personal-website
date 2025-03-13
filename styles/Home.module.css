@@ -1,168 +1,330 @@
-.page {
-  --gray-rgb: 0, 0, 0;
-  --gray-alpha-200: rgba(var(--gray-rgb), 0.08);
-  --gray-alpha-100: rgba(var(--gray-rgb), 0.05);
-
-  --button-primary-hover: #383838;
-  --button-secondary-hover: #f2f2f2;
-
-  display: grid;
-  grid-template-rows: 20px 1fr 20px;
+.container {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  justify-items: center;
-  min-height: 100svh;
-  padding: 80px;
-  gap: 64px;
-  font-family: var(--font-geist-sans);
-}
-
-@media (prefers-color-scheme: dark) {
-  .page {
-    --gray-rgb: 255, 255, 255;
-    --gray-alpha-200: rgba(var(--gray-rgb), 0.145);
-    --gray-alpha-100: rgba(var(--gray-rgb), 0.06);
-
-    --button-primary-hover: #ccc;
-    --button-secondary-hover: #1a1a1a;
-  }
 }
 
 .main {
+  max-width: 600px;
+  width: 100%;
+  padding: 40px 20px;
+  line-height: 1.6;
+  text-align: left;
+}
+
+.main h1 {
+  margin-bottom: 10px;
+  color: var(--heading-color);
+  transition: color 0.3s ease;
+}
+
+.main h2 {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  font-size: 16px;
+  color: var(--heading-color);
+  transition: color 0.3s ease;
+}
+
+.main p {
+  margin: 5px 0;
+  color: var(--text-color);
+  transition: color 0.3s ease;
+}
+
+.jobEntry {
   display: flex;
-  flex-direction: column;
-  gap: 32px;
-  grid-row-start: 2;
+  flex-wrap: wrap;
+  gap: 4px;
+  justify-content: flex-start;
 }
 
-.main ol {
-  font-family: var(--font-geist-mono);
-  padding-left: 0;
-  margin: 0;
-  font-size: 14px;
-  line-height: 24px;
-  letter-spacing: -0.01em;
-  list-style-position: inside;
+.companyName {
+  display: inline;
+  position: relative;
+  margin-left: 4px;
 }
 
-.main li:not(:last-of-type) {
-  margin-bottom: 8px;
+.companyLink {
+  color: var(--link-color);
+  text-decoration: none;
+  transition: color 0.3s ease;
 }
 
-.main code {
-  font-family: inherit;
-  background: var(--gray-alpha-100);
-  padding: 2px 4px;
-  border-radius: 4px;
-  font-weight: 600;
+.companyLink:hover {
+  text-decoration: underline;
 }
 
-.ctas {
+.companyText {
+  color: var(--link-color);
+  cursor: help;
+  transition: color 0.3s ease;
+}
+
+.companyText:hover {
+  text-decoration: underline;
+}
+
+.tooltip {
+  position: fixed;
+  z-index: 1000;
+  pointer-events: none;
+  width: 320px;
+  max-width: 90vw;
+  background-color: transparent;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px var(--tooltip-shadow), 0 0 1px rgba(0, 0, 0, 0.1);
+  transform-origin: top left;
+  animation: gentleFadeIn 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.carouselContainer {
+  position: relative;
+  width: 100%;
+  height: 160px;
+  overflow: hidden;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.tooltipContent {
+  position: relative;
+  background-color: var(--tooltip-bg);
+  backdrop-filter: blur(10px);
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  padding: 16px 20px;
+  color: var(--tooltip-text);
+  opacity: 0.92;
+  pointer-events: none;
+}
+
+.tooltipContent h3 {
+  margin-top: 0;
+  margin-bottom: 12px;
+  font-size: 15px;
+  color: var(--tooltip-heading);
+  font-weight: normal;
+  letter-spacing: 0.2px;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 8px;
+  transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+.tooltipContent p {
+  margin: 6px 0;
+  font-size: 13px;
+  line-height: 1.5;
+  transition: color 0.3s ease;
+}
+
+.tooltipDetails p {
+  margin: 8px 0;
+}
+
+.tooltipContent strong {
+  font-weight: normal;
+  color: var(--tooltip-label);
+  font-style: italic;
+  transition: color 0.3s ease;
+}
+
+.tooltipContent a {
+  color: var(--link-color);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.tooltipContent a:hover {
+  text-decoration: underline;
+}
+
+.tooltipCarousel {
+  position: relative;
+  width: 100%;
+  height: 160px;
+  overflow: hidden;
+  border-radius: 6px;
+  margin-bottom: 12px;
+  background-color: #fff;
+}
+
+.carouselImagesContainer {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.carouselImage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.8s ease-in-out;
+  will-change: opacity;
+  pointer-events: none;
+}
+
+.carouselImage.active {
+  opacity: 1;
+}
+
+.carouselImage.fadeOut {
+  opacity: 0;
+}
+
+.carouselOverlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 50px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.5), transparent);
+  z-index: 10;
+  pointer-events: none;
+}
+
+.imageCounter {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+  font-size: 11px;
+  padding: 3px 8px;
+  border-radius: 10px;
+  z-index: 11;
+}
+
+.carouselDots {
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  width: 100%;
   display: flex;
-  gap: 16px;
+  justify-content: center;
+  gap: 6px;
+  z-index: 11;
 }
 
-.ctas a {
-  appearance: none;
-  border-radius: 128px;
-  height: 48px;
-  padding: 0 20px;
-  border: none;
-  border: 1px solid transparent;
-  transition:
-    background 0.2s,
-    color 0.2s,
-    border-color 0.2s;
+.carouselDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.5);
+  transition: all 0.3s ease;
   cursor: pointer;
+}
+
+.carouselDot.active {
+  background-color: white;
+  transform: scale(1.2);
+}
+
+.dark-mode .tooltipContent {
+  background-color: rgba(40, 40, 40, 0.95);
+}
+
+.dark-mode .carouselContainer {
+  background-color: #222;
+}
+
+.themeToggleContainer {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+  z-index: 1000;
+}
+
+.hiddenToggle {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: transparent;
+  cursor: pointer;
+  opacity: 0;
+}
+
+.themeToggleButtons {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  gap: 10px;
+  background-color: var(--tooltip-bg);
+  border-radius: 20px;
+  padding: 8px 10px;
+  box-shadow: 0 2px 10px var(--tooltip-shadow);
+  border: 1px solid var(--border-color);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-10px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.themeToggleContainer:hover .themeToggleButtons {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.themeButton {
+  padding: 5px;
+  width: 30px;
+  height: 30px;
+  border: none;
+  background-color: transparent;
+  color: var(--text-color);
+  cursor: pointer;
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 16px;
-  line-height: 20px;
-  font-weight: 500;
+  transition: background-color 0.2s ease;
 }
 
-a.primary {
-  background: var(--foreground);
-  color: var(--background);
-  gap: 8px;
+.themeButton svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
 }
 
-a.secondary {
-  border-color: var(--gray-alpha-200);
-  min-width: 158px;
+.themeButton:hover {
+  background-color: rgba(128, 128, 128, 0.1);
 }
 
-.footer {
-  grid-row-start: 3;
-  display: flex;
-  gap: 24px;
+.themeButton.active {
+  background-color: rgba(128, 128, 128, 0.2);
 }
 
-.footer a {
-  display: flex;
-  align-items: center;
-  gap: 8px;
+.contactSection {
+  margin-top: 30px;
 }
 
-.footer img {
-  flex-shrink: 0;
-}
-
-/* Enable hover only on non-touch devices */
-@media (hover: hover) and (pointer: fine) {
-  a.primary:hover {
-    background: var(--button-primary-hover);
-    border-color: transparent;
+@keyframes gentleFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.98) translateY(-3px);
   }
-
-  a.secondary:hover {
-    background: var(--button-secondary-hover);
-    border-color: transparent;
-  }
-
-  .footer a:hover {
-    text-decoration: underline;
-    text-underline-offset: 4px;
+  to {
+    opacity: 1; 
+    transform: scale(1) translateY(0);
   }
 }
 
-@media (max-width: 600px) {
-  .page {
-    padding: 32px;
-    padding-bottom: 80px;
-  }
-
-  .main {
-    align-items: center;
-  }
-
-  .main ol {
-    text-align: center;
-  }
-
-  .ctas {
-    flex-direction: column;
-  }
-
-  .ctas a {
-    font-size: 14px;
-    height: 40px;
-    padding: 0 16px;
-  }
-
-  a.secondary {
-    min-width: auto;
-  }
-
-  .footer {
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-  }
-}
-
-@media (prefers-color-scheme: dark) {
-  .logo {
-    filter: invert();
-  }
+@keyframes fadeIn {
+  from { opacity: 0 !important; }
+  to { opacity: 1 !important; }
 }

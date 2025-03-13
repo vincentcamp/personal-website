@@ -1,42 +1,51 @@
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --text-color: #333;
+  --heading-color: #333;
+  --link-color: #4444aa;
+  --border-color: rgba(0, 0, 0, 0.05);
+  --tooltip-bg: rgba(250, 250, 250, 0.92);
+  --tooltip-text: #555;
+  --tooltip-heading: #333;
+  --tooltip-label: #888;
+  --tooltip-shadow: rgba(0, 0, 0, 0.04);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html.dark-mode {
+  --background: #1a1a1a;
+  --text-color: #e0e0e0;
+  --heading-color: #ffffff;
+  --link-color: #a2b6da;
+  --border-color: rgba(255, 255, 255, 0.1);
+  --tooltip-bg: rgba(40, 40, 40, 0.95);
+  --tooltip-text: #d0d0d0;
+  --tooltip-heading: #ffffff;
+  --tooltip-label: #a0a0a0;
+  --tooltip-shadow: rgba(0, 0, 0, 0.2);
 }
 
 html,
 body {
-  max-width: 100vw;
-  overflow-x: hidden;
+  padding: 0;
+  margin: 0;
+  font-family: "Times New Roman", Times, serif;
+  background-color: var(--background);
+  color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
+  height: 100%;
+  width: 100%;
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+a {
+  color: var(--link-color);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  text-decoration: underline;
 }
 
 * {
   box-sizing: border-box;
-  padding: 0;
-  margin: 0;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
 }
