@@ -53,7 +53,7 @@ const companyInfo = {
   'Seven Star Vacations': {
     description: 'Built and sold travel agency specializing in luxury vacations.',
     location: 'New York, NY',
-    website: 'https://archive.vincentcampanaro.com/seven-star-vacations',
+    website: 'https://sevenstarvacations.com',
     images: [
       'https://cdn.prod.website-files.com/653487216a9176ae6b04d89d/658a3f2600518a27e267a5ff_maldives.jpeg',
       'https://cdn.prod.website-files.com/653487216a9176ae6b04d89d/6582538b47c1b9d4aeec9988_seven-star-vacations-3.jpg'
@@ -143,7 +143,7 @@ export default function Home() {
       document.documentElement.classList.remove('dark-mode');
       document.documentElement.classList.add('light-mode');
     }
-  }, [theme]);
+  }, [theme]);  
   
   const changeTheme = (newTheme) => {
     setTheme(newTheme);
@@ -294,7 +294,7 @@ export default function Home() {
         {renderJobEntry("Business Analytics", "HP")}
         {renderJobEntry("Founder", "Seven Star Vacations")}
         {renderJobEntry("Founder", "Vincent Campanaro Productions")}
-        {renderJobEntry("Software Engineering", "THEMAGIC5")}
+        {renderJobEntry("Software Engineer", "THEMAGIC5")}
         {renderJobEntry("Product", "RippleMatch")}
         
         <div className={styles.contactSection}>
