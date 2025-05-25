@@ -288,10 +288,10 @@ export default function Home() {
         <p>BTE + CS @ NYU Stern</p>
         
         <h2>Present</h2>
-        {renderJobEntry("Co-Founder", "Fari")}
-        {renderJobEntry("Founder", "Seven Star Property Management")}
+        {renderJobEntry("Co-Founder & CEO", "Fari")}
         
         <h2>Previous</h2>
+        {renderJobEntry("Founder", "Seven Star Property Management")}
         {renderJobEntry("AI/ML Engineer", "Seeed Studio")}
         {renderJobEntry("Business Development", "The Ritz-Carlton Hotel Company")}
         {renderJobEntry("Business Analytics", "HP")}
